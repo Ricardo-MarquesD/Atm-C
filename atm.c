@@ -3,6 +3,10 @@
 #include <stdlib.h>
 
 void initAccount(atm_t *person){
+    if(person == NULL){
+        fprintf(stderr, "Error: Person is null.");
+        return;
+    }
     if(person->name == NULL){
         fprintf(stderr, "Error: Name is null.");
         return;
