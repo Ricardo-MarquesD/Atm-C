@@ -6,7 +6,7 @@ typedef struct atm_t{
     long long balance;
     int id;
     int agence;
-    int account_number;
+    char account_number[12];
 }atm_t;
 
 void initAccount(atm_t *person);
