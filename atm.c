@@ -4,11 +4,32 @@
 #include <string.h>
 
 void atmData(atm_t *person){
+    if(person == NULL) return;
     printf("\n-------Data Account-------\n");
     printf("Name: %s\n", person->name);
     printf("Account number: %s\n", person->account_number);
     printf("Ban Agency: %d\n",person->agence);
     printf("Bank balance: %lld\n\n", person->balance);
+}
+
+void seek_atm(atm_t *person, char account_number[9]){
+    FILE *stream;
+    atm_t current;
+    int valid = 0;
+
+    stream = fopen("report.bin", "rb");
+    if(stream == NULL){return;}
+    while(fread(&current, sizeof(atm_t), 1, stream)){
+        if(strcmp(account_number, current.account_number) == 0){
+            valid = 1;
+            break;
+        }
+    }
+    fclose(stream);
+
+    if(valid == 1){
+        *person = current;
+    }
 }
 
 void initAccount(atm_t *person){

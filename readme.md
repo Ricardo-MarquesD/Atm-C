@@ -17,7 +17,7 @@ Este projeto implementa um sistema simples de gerenciamento de contas bancárias
 
 ## Funcionalidades
 
--**atmData**: Faz a visualização de uma conta.
+- **atmData**: Faz a visualização de uma conta.
 - **initAccount()**: Inicializa uma nova conta bancária.
 - **draw()**: Permite sacar um valor de uma conta existente.
 - **deposit()**: Permite depositar um valor em uma conta existente.

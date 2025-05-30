@@ -44,7 +44,7 @@ int main(int argc, char const *argv[]){
     
     while(flag){
         flag = 0;
-        printf("You have account?\r\n(Exit - 0 |Yes - 1 | No - 2)\n");
+        printf("You have account?(Exit - 0 |Yes - 1 | No - 2)\n");
         int key;
         scanf("%d", &key);
 
