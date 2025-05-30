@@ -12,7 +12,16 @@ void atmData(atm_t *person){
     printf("Bank balance: %lld\n\n", person->balance);
 }
 
-void seek_atm(atm_t *person, char account_number[9]){
+int seek_atm(atm_t *person, char account_number[9]){
+    if(person == NULL){
+        fprintf(stderr, "Error: Person is null.\n");
+        return;
+    }
+    if(strlen(account_number) != 9){
+        fprintf(stderr, "Error: account_number is incorrect\n");
+        return;
+    }
+    
     FILE *stream;
     atm_t current;
     int valid = 0;
@@ -30,6 +39,8 @@ void seek_atm(atm_t *person, char account_number[9]){
     if(valid == 1){
         *person = current;
     }
+
+    return valid == 1 ? 0 : -1;
 }
 
 void initAccount(atm_t *person){
@@ -64,12 +75,12 @@ void initAccount(atm_t *person){
 }
 
 void draw(char account_number[9], long long balance){
-    if(strlen(account_number) >= 9){
+    if(strlen(account_number) != 9){
         fprintf(stderr, "Error: account_number is incorrect\n");
         return;
     }
     if(balance <= 0){
-        printf("Saque invalido!\n");
+        printf("Invalid withdraw!\n");
         return;   
     }
 
@@ -96,12 +107,12 @@ void draw(char account_number[9], long long balance){
 }
 
 void deposit(char account_number[9], long long balance){
-    if(strlen(account_number) >= 9){
+    if(strlen(account_number) != 9){
         fprintf(stderr, "Error: account_number is incorrect\n");
         return;
     }
     if(balance <= 0){
-        printf("Saque invalido!\n");
+        printf("Invalid withdraw!\n");
         return;   
     }
 
@@ -115,8 +126,8 @@ void deposit(char account_number[9], long long balance){
             fseek(stream, -(int)sizeof(atm_t), SEEK_CUR);
             buffer.balance = buffer.balance + balance;
             fwrite(&buffer, sizeof(atm_t), 1, stream);
-            printf("Deposito de %d reais foi feito com sucesso.\n", balance);
-            printf("Saldo final: %d reais.\n", buffer.balance);
+            printf("Deposit of %lld dollars was made successfully.\n", balance);
+            printf("Final balance: %lld reais.\n", buffer.balance);
             break;
         }
     }

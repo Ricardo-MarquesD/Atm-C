@@ -4,6 +4,10 @@
 #include <time.h>
 #include "atm.h"
 
+void freebuf(){
+    while(getchar() != '\n' && getchar() != EOF);
+}
+
 void newAccount(){
     atm_t account;
     char name[80];
@@ -11,9 +15,9 @@ void newAccount(){
     printf("\nYou wish create a new account?(Yes - 1 | No - 2)\n");
     int key;
     scanf("%d", &key);
-    while(getchar() != '\n' && getchar() != EOF);
+    freebuf();
     
-    switch (key){
+    switch(key){
     case 1:
         while(1){
             printf("Your full name: ");
@@ -34,6 +38,43 @@ void newAccount(){
 }
 
 void accountExist(){
+    atm_t account;
+    int money;
+    char account_number[9];
+
+    printf("Enter your account number (000000-0): \n");
+    while(1){
+        fgets(account_number, sizeof(account_number), stdin);
+        if(strlen(account_number) != 9 || seek_atm(&account, account_number) == -1) {printf("Invalid account number, try again.\n"); continue;}
+        break;
+    }
+
+    atmData(&account);
+
+    printf("\nWhat you wish: (Nothing - 0 | Draw - 1 | Deposit - 2)\n");
+    int key;
+    scanf("%d", &key);
+    freebuf();
+
+    switch(key){
+    case 0:
+        break;
+    case 1:
+        printf("Withdraw amount(Only integer numbers): \n");
+        scanf("%d", &money);
+        freebuf();
+        draw(account_number, money);
+        break;
+    case 2:
+        printf("Depoist amount(Only integer numbers): \n");
+        scanf("%d", &money);
+        freebuf();
+        deposit(account_number, money);
+        break;
+    default:
+        printf("Invalid input.\n");
+        break;
+    }
 
 }
 
@@ -47,6 +88,7 @@ int main(int argc, char const *argv[]){
         printf("You have account?(Exit - 0 |Yes - 1 | No - 2)\n");
         int key;
         scanf("%d", &key);
+        freebuf();
 
         switch(key){
         case 0:
@@ -65,6 +107,5 @@ int main(int argc, char const *argv[]){
             break;
         }
     }
-
     return 0;
 }

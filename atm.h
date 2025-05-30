@@ -10,7 +10,7 @@ typedef struct atm_t{
 }atm_t;
 
 void atmData(atm_t *person);
-void seek_atm(atm_t *person, char account_number[9]);
+int seek_atm(atm_t *person, char account_number[9]);
 void initAccount(atm_t *person);
 void draw(char account_number[9], long long balance);
 void deposit(char account_number[9], long long balance);
