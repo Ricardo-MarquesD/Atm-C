@@ -4,11 +4,11 @@
 #include <string.h>
 
 void atmData(atm_t *person){
-    printf("\n-------Dados da Conta-------\n");
-    printf("Nome: %s\n", person->name);
-    printf("Número da Conta: %s\n", person->account_number);
-    printf("Agência Bancaria: %d\n",person->agence);
-    printf("Saldo bancario: %lld\n\n", person->balance);
+    printf("\n-------Data Account-------\n");
+    printf("Name: %s\n", person->name);
+    printf("Account number: %s\n", person->account_number);
+    printf("Ban Agency: %d\n",person->agence);
+    printf("Bank balance: %lld\n\n", person->balance);
 }
 
 void initAccount(atm_t *person){
@@ -27,9 +27,7 @@ void initAccount(atm_t *person){
     int digitalPart = rand() % 10;
     sprintf(person->account_number, "%06d-%d", mainPart, digitalPart);
     person->agence = rand() % 9999;
-    if(person->balance == 0){
-        person->balance = 0;
-    }
+    person->balance = 0;
 
     stream = fopen("report.bin", "rb+");
     if(stream == NULL){return;}
@@ -61,15 +59,15 @@ void draw(char account_number[9], long long balance){
     while(fread(&buffer, sizeof(atm_t), 1, stream) == 1){
         if(strcmp(account_number, buffer.account_number) == 0){
             if(buffer.balance-balance < 0){
-                printf("Saldo insuficiente.\n");
+                printf("Insufficient balance.\n");
                 break;
             }
             //printf("Saldo da buffer: %lld\n", buffer.balance);
             fseek(stream, -(int)sizeof(atm_t), SEEK_CUR);
             buffer.balance = buffer.balance - balance;
             fwrite(&buffer, sizeof(atm_t), 1, stream);
-            printf("Saque de %d reais foi feito com sucesso.\n", balance);
-            printf("Saldo final: %d reais.\n", buffer.balance);
+            printf("Withdrawal of %lld dollars was made successfully.\n", balance);
+            printf("Final balance: %lld reais.\n", buffer.balance);
             break;
         }
     }

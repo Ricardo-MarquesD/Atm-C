@@ -8,45 +8,61 @@ void newAccount(){
     atm_t account;
     char name[80];
 
-    printf("\nDeseja criar uma nova?(sim - 1 | não - 2)\n");
-    int key = scanf("%d", &key);
+    printf("\nYou wish create a new account?(Yes - 1 | No - 2)\n");
+    int key;
+    scanf("%d", &key);
+    while(getchar() != '\n' && getchar() != EOF);
+    
     switch (key){
     case 1:
         while(1){
-        printf("Seu nome completo: ");
-        if(fgets(name, sizeof(80), stdin) == NULL) continue;
-        initAccount(&account);
-        break;
+            printf("Your full name: ");
+            fgets(name, sizeof(name), stdin);
+            if(strlen(name) == 0 || strlen(name) == 1) continue;
+            strcpy(account.name, name);
+            initAccount(&account);
+            atmData(&account);
+            break;
         }
         break;
-    
+    case 2:
+        break;
     default:
+        printf("Error of input underspected.\n");
         break;
     }
-    strcpy(account.name, name);
 }
 
 void accountExist(){
 
 }
+
 int main(int argc, char const *argv[]){
-    atm_t account;
+    int flag = 1;
+
     srand(time(NULL));
-    strcpy(account.name, "Pessoa Teste4");
     
-    while(1){
-        printf("Você já possuí uma conta?\r\n       (sim - 1 | não - 2)");
-        int key = scanf("%d", &key);
+    while(flag){
+        flag = 0;
+        printf("You have account?\r\n(Exit - 0 |Yes - 1 | No - 2)\n");
+        int key;
+        scanf("%d", &key);
 
         switch(key){
+        case 0:
+            printf("Program closed.\n");
+            break;
         case 1:
             accountExist();
             break;
         case 2:
             newAccount();
+            flag = 1;
             break;
         default:
-            printf("\n\nComando invalido, tente novamente.\n\n");
+            printf("\n\nInvalid command, try again.\n\n");
+            flag = 1;
+            break;
         }
     }
 
