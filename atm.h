@@ -9,6 +9,7 @@ typedef struct atm_t{
     int agence;
 }atm_t;
 
+void atmData(atm_t *person);
 void initAccount(atm_t *person);
 void draw(char account_number[9], long long balance);
 void deposit(char account_number[9], long long balance);

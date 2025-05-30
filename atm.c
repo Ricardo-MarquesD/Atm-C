@@ -3,6 +3,14 @@
 #include <stdlib.h>
 #include <string.h>
 
+void atmData(atm_t *person){
+    printf("\n-------Dados da Conta-------\n");
+    printf("Nome: %s\n", person->name);
+    printf("Número da Conta: %s\n", person->account_number);
+    printf("Agência Bancaria: %d\n",person->agence);
+    printf("Saldo bancario: %lld\n\n", person->balance);
+}
+
 void initAccount(atm_t *person){
     if(person == NULL){
         fprintf(stderr, "Error: Person is null.\n");
