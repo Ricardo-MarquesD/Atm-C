@@ -17,6 +17,6 @@ Este projeto implementa um sistema simples de gerenciamento de contas bancárias
 
 ## Funcionalidades
 
-- **Criar conta**: Inicializa uma nova conta bancária.
-- **Saque**: Permite sacar um valor de uma conta existente.
-- **Depósito**: Permite depositar um valor em uma conta existente.
+- **initAccount()**: Inicializa uma nova conta bancária.
+- **draw()**: Permite sacar um valor de uma conta existente.
+- **deposit()**: Permite depositar um valor em uma conta existente.
