@@ -122,3 +122,10 @@ void deposit(char account_number[9], long long balance){
     }
     fclose(stream);
 }
+
+void resetBin(){
+    FILE *stream;
+    stream = fopen("report.bin", "wb");
+    if(stream == NULL){return;}
+    fclose(stream);
+}

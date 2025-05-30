@@ -14,5 +14,6 @@ void seek_atm(atm_t *person, char account_number[9]);
 void initAccount(atm_t *person);
 void draw(char account_number[9], long long balance);
 void deposit(char account_number[9], long long balance);
+void resetBin();
 
 #endif
