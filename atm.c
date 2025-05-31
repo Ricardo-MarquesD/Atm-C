@@ -15,19 +15,19 @@ void atmData(atm_t *person){
 int seek_atm(atm_t *person, char account_number[9]){
     if(person == NULL){
         fprintf(stderr, "Error: Person is null.\n");
-        return;
+        return -1;
     }
     if(strlen(account_number) != 9){
         fprintf(stderr, "Error: account_number is incorrect\n");
-        return;
+        return -1;
     }
-    
+
     FILE *stream;
     atm_t current;
     int valid = 0;
 
     stream = fopen("report.bin", "rb");
-    if(stream == NULL){return;}
+    if(stream == NULL){return -1;}
     while(fread(&current, sizeof(atm_t), 1, stream)){
         if(strcmp(account_number, current.account_number) == 0){
             valid = 1;
@@ -40,7 +40,7 @@ int seek_atm(atm_t *person, char account_number[9]){
         *person = current;
     }
 
-    return valid == 1 ? 0 : -1;
+    return valid == 1 ? 0 : -2;
 }
 
 void initAccount(atm_t *person){

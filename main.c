@@ -45,7 +45,11 @@ void accountExist(){
     printf("Enter your account number (000000-0): \n");
     while(1){
         fgets(account_number, sizeof(account_number), stdin);
-        if(strlen(account_number) != 9 || seek_atm(&account, account_number) == -1) {printf("Invalid account number, try again.\n"); continue;}
+        account_number[8] = '\n';
+        if(seek_atm(&account, account_number) == -1) {
+            printf("Invalid account number, try again.\n"); 
+            continue;
+        }
         break;
     }
 
