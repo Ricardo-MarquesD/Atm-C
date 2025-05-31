@@ -17,7 +17,7 @@ int seek_atm(atm_t *person, char account_number[9]){
         fprintf(stderr, "Error: Person is null.\n");
         return -1;
     }
-    if(strlen(account_number) != 9){
+    if(strlen(account_number) != 8){
         fprintf(stderr, "Error: account_number is incorrect\n");
         return -1;
     }
@@ -40,7 +40,7 @@ int seek_atm(atm_t *person, char account_number[9]){
         *person = current;
     }
 
-    return valid == 1 ? 0 : -2;
+    return valid == 1 ? 0 : -1;
 }
 
 void initAccount(atm_t *person){
@@ -75,7 +75,7 @@ void initAccount(atm_t *person){
 }
 
 void draw(char account_number[9], long long balance){
-    if(strlen(account_number) != 9){
+    if(strlen(account_number) >= 9){
         fprintf(stderr, "Error: account_number is incorrect\n");
         return;
     }
@@ -98,7 +98,7 @@ void draw(char account_number[9], long long balance){
             fseek(stream, -(int)sizeof(atm_t), SEEK_CUR);
             buffer.balance = buffer.balance - balance;
             fwrite(&buffer, sizeof(atm_t), 1, stream);
-            printf("Withdrawal of %lld dollars was made successfully.\n", balance);
+            printf("Withdrawal of %lld reais was made successfully.\n", balance);
             printf("Final balance: %lld reais.\n", buffer.balance);
             break;
         }
@@ -107,7 +107,7 @@ void draw(char account_number[9], long long balance){
 }
 
 void deposit(char account_number[9], long long balance){
-    if(strlen(account_number) != 9){
+    if(strlen(account_number) >= 9){
         fprintf(stderr, "Error: account_number is incorrect\n");
         return;
     }
@@ -126,7 +126,7 @@ void deposit(char account_number[9], long long balance){
             fseek(stream, -(int)sizeof(atm_t), SEEK_CUR);
             buffer.balance = buffer.balance + balance;
             fwrite(&buffer, sizeof(atm_t), 1, stream);
-            printf("Deposit of %lld dollars was made successfully.\n", balance);
+            printf("Deposit of %lld reais was made successfully.\n", balance);
             printf("Final balance: %lld reais.\n", buffer.balance);
             break;
         }
