@@ -3,7 +3,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-void atmData(atm_t *person){
+void atmData(const atm_t *person){
     if(person == NULL) return;
     printf("\n-------Data Account-------\n");
     printf("Name: %s\n", person->name);
